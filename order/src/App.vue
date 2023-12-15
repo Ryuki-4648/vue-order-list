@@ -14,12 +14,6 @@ const form = {
   address_1: '',
   address_2: '',
   belong_to_work_reunion: true,
-  company_tel: '0600000000',
-  company_postal_code_1: '550',
-  company_postal_code_2: '0012',
-  company_prefecture: '大阪府',
-  company_address_1: '',
-  company_address_2: '',
   total_sum_including_tax: '',
   item_total_sum: '',
   postage: '600',
@@ -31,14 +25,13 @@ const form = {
       number: 1,
       delivery_list: [
         {
-          name: '山田　花子',
-          postal_code_1: '',
-          postal_code_2: '',
-          prefecture: '',
-          company_address_1: '',
-          company_address_2: '',
-          company_name: '',
-          department_name: '',
+          name: '白石 麻衣子',
+          postal_code_1: '000',
+          postal_code_2: '0000',
+          prefecture: '群馬県',
+          address_1: '前橋市XXX町',
+          address_2: '1丁目2-3',
+          building_name: '',
           specified_day: '1',
           deliverly_day: '2023-08-09 16:23',
           specified_time: '1',
@@ -48,8 +41,8 @@ const form = {
       ],
       items: [
         {
-          product_name: 'aaa',
-          fee_including_tax: '10000',
+          product_name: '箱推し12色ペンライト',
+          fee_including_tax: '3500',
           quantity: '1',
           img_path: 'https://placehold.jp/100x100.png',
           detail: [
@@ -59,8 +52,8 @@ const form = {
           ],
         },
         {
-          product_name: '',
-          fee_including_tax: '7980',
+          product_name: '推しメン別12色ペンライト',
+          fee_including_tax: '4000',
           quantity: '3',
           img_path: 'https://placehold.jp/100x100.png',
           detail: [
@@ -75,14 +68,13 @@ const form = {
       number: 2,
       delivery_list: [
         {
-          name: '田中　一郎',
-          postal_code_1: '',
-          postal_code_2: '',
-          prefecture: '',
-          company_address_1: '',
-          company_address_2: '',
-          company_name: '',
-          department_name: '営業部',
+          name: '西野 七実',
+          postal_code_1: '046',
+          postal_code_2: '1234',
+          prefecture: '大阪府',
+          address_1: '大阪市XXX',
+          address_2: '4丁目4-6',
+          building_name: '乃木坂ビルディング 406号室',
           specified_day: '1',
           deliverly_day: '2023-01-30 10:34',
           specified_time: '1',
@@ -92,12 +84,12 @@ const form = {
       ],
       items: [
         {
-          product_name: '',
-          fee_including_tax: '10000',
+          product_name: 'マフラータオル',
+          fee_including_tax: '1500',
           quantity: '2',
           img_path: 'https://placehold.jp/100x100.png',
           detail: [
-            { item_name: '', select_box: '', },
+            { item_name: 'メンバーの名前', select_box: '', },
             { item_name: '', select_box: '', },
             { item_name: '', select_box: '', },
             { item_name: '', select_box: '', },
@@ -115,15 +107,31 @@ const form = {
 </script>
 
 <template>
-  <img alt="Vue logo" src="./assets/logo.png">
-  <!-- <HelloWorld msg="Welcome to Your Vue.js App"/> -->
-  <p>{{ form.name }}</p>
-  <ul>
-    <li v-for="(item, index) in form.item_box" :key="index">
-      {{ item.items.product_name }}
-      {{ item.number }}
-    </li>
-  </ul>
+  <main>
+    <h1>order list</h1>
+    <section>
+      <ul>
+        <li v-for="itemBox, itemBoxIndex in form.item_box" :key="itemBoxIndex">
+          <p>購入商品{{ itemBox.number }}</p>
+          <ul>
+            <li v-for="item, index in itemBox.items" :key="index">
+              <div class="item">
+                <img :src="item.img_path" :alt="`${item.product_name}の画像`">
+                <div>
+                  <p>{{ item.product_name }}</p>
+                  <p>{{ Number(item.fee_including_tax).toLocaleString() }}円<span>（税込）</span></p>
+                </div>
+              </div>
+              <div v-for="selectItem, selectItemIndex in item.detail" :key="selectItemIndex">
+                <input type="selectbox" v-model="selectItem.item_name" />
+              </div>
+            </li>
+          </ul>
+        </li>
+      </ul>
+    </section>
+  </main>
+
 </template>
 
 <style>
@@ -134,5 +142,15 @@ const form = {
   text-align: center;
   color: #2c3e50;
   margin-top: 60px;
+}
+ul,li {
+  list-style: none;
+}
+
+.item {
+  display: flex;
+}
+.item img {
+  margin-right: 16px;
 }
 </style>
