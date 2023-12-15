@@ -1,12 +1,4 @@
 <script setup>
-// import HelloWorld from './components/HelloWorld.vue'
-
-// export default {
-//   name: 'App',
-//   components: {
-//     HelloWorld
-//   }
-// }
 
 const form = {
   status: '0',
@@ -56,7 +48,7 @@ const form = {
       ],
       items: [
         {
-          product_name: '',
+          product_name: 'aaa',
           fee_including_tax: '10000',
           quantity: '1',
           img_path: 'https://placehold.jp/100x100.png',
@@ -128,8 +120,8 @@ const form = {
   <p>{{ form.name }}</p>
   <ul>
     <li v-for="(item, index) in form.item_box" :key="index">
-      {{ form.item_box[0].items[0].product_name }}
-      {{ item }}
+      {{ item.items.product_name }}
+      {{ item.number }}
     </li>
   </ul>
 </template>
