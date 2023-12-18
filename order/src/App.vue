@@ -46,9 +46,9 @@ const form = {
           quantity: '1',
           img_path: 'https://placehold.jp/100x100.png',
           detail: [
-            { item_name: '', select_box: '', },
-            { item_name: '', select_box: '', },
-            { item_name: '', select_box: '', },
+            { item_name: '乃木坂46', select_box: ['衛藤美彩', '橋本奈々未'], },
+            { item_name: '櫻坂46', select_box: '', },
+            { item_name: '日向坂46', select_box: '', },
           ],
         },
         {
@@ -57,9 +57,9 @@ const form = {
           quantity: '3',
           img_path: 'https://placehold.jp/100x100.png',
           detail: [
-            { item_name: '', select_box: '', },
-            { item_name: '', select_box: '', },
-            { item_name: '', select_box: '', },
+            { item_name: '乃木坂46', select_box: ['衛藤美彩', '橋本奈々未'], },
+            { item_name: '櫻坂46', select_box: '', },
+            { item_name: '日向坂46', select_box: '', },
           ],
         },
       ],
@@ -115,7 +115,7 @@ const form = {
           <p>購入商品{{ itemBox.number }}</p>
           <ul>
             <li v-for="item, index in itemBox.items" :key="index">
-              <div class="item">
+              <div class="flex">
                 <img :src="item.img_path" :alt="`${item.product_name}の画像`">
                 <div>
                   <p>{{ item.product_name }}</p>
@@ -123,7 +123,8 @@ const form = {
                 </div>
               </div>
               <div v-for="selectItem, selectItemIndex in item.detail" :key="selectItemIndex">
-                <input type="selectbox" v-model="selectItem.item_name" />
+                <label>{{ selectItem.item_name }}</label>
+                <select v-model="selectItem.select_box" :options="selectItem.select_box"></select>
               </div>
             </li>
           </ul>
@@ -147,10 +148,4 @@ ul,li {
   list-style: none;
 }
 
-.item {
-  display: flex;
-}
-.item img {
-  margin-right: 16px;
-}
 </style>
