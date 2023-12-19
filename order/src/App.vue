@@ -1,4 +1,5 @@
 <script setup>
+import dayjs from 'dayjs';
 
 const form = {
   status: '0',
@@ -104,32 +105,38 @@ const form = {
   point_note: '100',
   note: 'テキストが入ります。テキストが入ります。テキストが入ります。テキストが入ります。',
 }
+
+const currentDate = dayjs();
 </script>
 
 <template>
   <main>
     <h1>order list</h1>
     <section>
-      <ul>
-        <li v-for="itemBox, itemBoxIndex in form.item_box" :key="itemBoxIndex">
-          <p>購入商品{{ itemBox.number }}</p>
-          <ul>
-            <li v-for="item, index in itemBox.items" :key="index">
-              <div class="flex">
-                <img :src="item.img_path" :alt="`${item.product_name}の画像`">
-                <div>
-                  <p>{{ item.product_name }}</p>
-                  <p>{{ Number(item.fee_including_tax).toLocaleString() }}円<span>（税込）</span></p>
+      <p>{{ currentDate.format('YYYY/MM/DD') }}</p>
+      <p>更新日：{{ dayjs(form.day).format('YYYY/MM/DD') }}</p>
+      <div class="content">
+        <ul>
+          <li v-for="itemBox, itemBoxIndex in form.item_box" :key="itemBoxIndex">
+            <p>購入商品{{ itemBox.number }}</p>
+            <ul>
+              <li v-for="item, index in itemBox.items" :key="index">
+                <div class="flex">
+                  <img :src="item.img_path" :alt="`${item.product_name}の画像`">
+                  <div>
+                    <p>{{ item.product_name }}</p>
+                    <p>{{ Number(item.fee_including_tax).toLocaleString() }}円<span>（税込）</span></p>
+                  </div>
                 </div>
-              </div>
-              <div v-for="selectItem, selectItemIndex in item.detail" :key="selectItemIndex">
-                <label>{{ selectItem.item_name }}</label>
-                <select v-model="selectItem.select_box" :options="selectItem.select_box"></select>
-              </div>
-            </li>
-          </ul>
-        </li>
-      </ul>
+                <div v-for="selectItem, selectItemIndex in item.detail" :key="selectItemIndex">
+                  <label>{{ selectItem.item_name }}</label>
+                  <select v-model="selectItem.select_box" :options="selectItem.select_box"></select>
+                </div>
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </div>
     </section>
   </main>
 
@@ -147,5 +154,14 @@ const form = {
 ul,li {
   list-style: none;
 }
-
+.flex {
+  display: flex;
+}
+.content {
+  background-color: #fafafa;
+  border-radius: 20px;
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 50px 30px;
+}
 </style>
