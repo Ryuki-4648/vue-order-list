@@ -58,9 +58,9 @@ const form = {
           quantity: '3',
           img_path: 'https://placehold.jp/100x100.png',
           detail: [
-            { item_name: '乃木坂46', select_box: ['衛藤美彩', '橋本奈々未'], },
-            { item_name: '櫻坂46', select_box: '', },
-            { item_name: '日向坂46', select_box: '', },
+            { item_name: '乃木坂46', select_box: ['衛藤美彩', '橋本奈々未', '白石麻衣', '生田絵梨花', '与田祐希', '五百城茉央', '池田瑛紗'], },
+            { item_name: '櫻坂46', select_box: ['渡辺梨加', '守屋麗奈', '森田ひかる', '土生瑞穂', '田村保乃', '山﨑天'] },
+            { item_name: '日向坂46', select_box: ['小坂菜緒', '齊藤京子', '正源寺陽子',], },
           ],
         },
       ],
@@ -122,16 +122,24 @@ const currentDate = dayjs();
             <ul>
               <li v-for="item, index in itemBox.items" :key="index">
                 <div class="flex">
-                  <img :src="item.img_path" :alt="`${item.product_name}の画像`">
-                  <div>
-                    <p>{{ item.product_name }}</p>
-                    <p>{{ Number(item.fee_including_tax).toLocaleString() }}円<span>（税込）</span></p>
+                  
+                  <div class="flex">
+                    <img :src="item.img_path" :alt="`${item.product_name}の画像`">
+                    <div>
+                      <p>{{ item.product_name }}</p>
+                      <p>{{ Number(item.fee_including_tax).toLocaleString() }}円<span>（税込）</span></p>
+                    </div>
                   </div>
+                  <ul>
+                    <li v-for="selectItem, selectItemIndex in item.detail" :key="selectItemIndex">
+                      <label>{{ selectItem.item_name }}</label>
+                      <select v-model="selectItem.select_box">
+                        <option v-for="option in selectItem.select_box" :key="option" :value="option">{{ option }}</option>
+                      </select>
+                    </li>
+                  </ul>
                 </div>
-                <div v-for="selectItem, selectItemIndex in item.detail" :key="selectItemIndex">
-                  <label>{{ selectItem.item_name }}</label>
-                  <select v-model="selectItem.select_box" :options="selectItem.select_box"></select>
-                </div>
+
               </li>
             </ul>
           </li>
@@ -163,5 +171,12 @@ ul,li {
   max-width: 600px;
   margin: 0 auto;
   padding: 50px 30px;
+}
+
+select {
+  width: 140px;
+  height: 30px;
+  padding: 1px 4px;
+  cursor: pointer;
 }
 </style>
