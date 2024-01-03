@@ -5,16 +5,16 @@ const form = {
   status: '0',
   day: '2023-12-09 12:42',
   id: '1234567',
-  name: '',
-  name_kana: '',
+  name: '橋本 奈々',
+  name_kana: 'はしもと なな',
   tel: '0123456789',
-  mail_address: '',
-  postal_code_1: '530',
-  postal_code_2: '0001',
+  mail_address: '220_nana@hoge.com',
+  postal_code_1: '107',
+  postal_code_2: '0052',
   prefecture: '東京都',
-  address_1: '',
+  address_1: '港区赤坂８丁目１１−２７',
   address_2: '',
-  belong_to_work_reunion: true,
+  member: true,
   total_sum_including_tax: '',
   item_total_sum: '',
   postage: '600',
@@ -24,7 +24,7 @@ const form = {
   item_box: [
     {
       number: 1,
-      delivery_list: [
+      delivery_list:
         {
           name: '白石 麻衣子',
           postal_code_1: '000',
@@ -32,14 +32,13 @@ const form = {
           prefecture: '群馬県',
           address_1: '前橋市XXX町',
           address_2: '1丁目2-3',
-          building_name: '',
+          building_name: '乃木坂ハイツ 406号室',
           specified_day: '1',
           deliverly_day: '2023-08-09 16:23',
           specified_time: '1',
           time: ['2'],
           note: '',
-        }
-      ],
+        },
       items: [
         {
           product_name: '箱推し12色ペンライト',
@@ -67,7 +66,7 @@ const form = {
     },
     {
       number: 2,
-      delivery_list: [
+      delivery_list:
         {
           name: '西野 七実',
           postal_code_1: '046',
@@ -82,7 +81,6 @@ const form = {
           time: ['4'],
           note: '',
         },
-      ],
       items: [
         {
           product_name: 'マフラータオル',
@@ -108,7 +106,7 @@ const currentDate = dayjs();
 
 <template>
 
-  <header class="fixed pl-3 md:pl-6 pt-2 md:pt-4 text-xl bg-white w-full">
+  <header class="fixed pl-3 md:pl-6 pt-2 md:pt-4 text-xl w-full">
     <h1>Sakamichi shop</h1>
   </header>
 
@@ -119,12 +117,12 @@ const currentDate = dayjs();
       <h2 class="text-3xl mb-8 text-center">order list</h2>
 
       <div class="w-48 mx-auto mb-6">
-        <p class="text-xs text-left mb-1">現在日時：{{ currentDate.format('YYYY/MM/DD hh:ss') }}</p>
-        <p class="text-xs text-left">更新日：{{ dayjs(form.day).format('YYYY/MM/DD') }}</p>
+        <p class="text-xs text-left mb-1 tracking-wide">現在日時：{{ currentDate.format('YYYY/MM/DD HH:mm:ss') }}</p>
+        <p class="text-xs text-left tracking-wide">更新日：{{ dayjs(form.day).format('YYYY/MM/DD') }}</p>
       </div>
-      <p class="text-sm text-left md:text-center mb-4">購入商品とお客様情報をご確認の上、お支払い情報にお進みください。</p>
+      <p class="text-sm text-left md:text-center mb-4 tracking-wider">購入商品とお客様情報をご確認の上、お支払い情報にお進みください。</p>
 
-      <div class="w-[20rem] md:w-[36rem] mx-auto shadow-xl rounded-3xl py-16 px-4 md:px-8">
+      <div class="w-[20rem] md:w-[36rem] mx-auto shadow-xl rounded-3xl py-16 px-4 md:px-8 bg-white">
         <ul>
           <li v-for="itemBox, itemBoxIndex in form.item_box" :key="itemBoxIndex" class="mb-12">
             <h2 class="text-lg font-bold text-left mb-2">購入商品{{ itemBox.number }}</h2>
@@ -156,9 +154,70 @@ const currentDate = dayjs();
 
         <hr />
         <h2 class="text-lg font-bold text-left mb-2 mt-4">購入者情報</h2>
+        <table class="text-left">
+          <tr class="">
+            <th class="">お名前</th>
+            <td class=""><input type="text" v-model="form.name" class="border px-2 h-8 rounded-md"></td>
+          </tr>
+          <tr>
+            <th>ふりがな</th>
+            <td><input type="text" v-model="form.name_kana"></td>
+          </tr>
+          <tr>
+            <th>お電話番号</th>
+            <td><input type="text" v-model="form.tel"></td>
+          </tr>
+          <tr>
+            <th>メールアドレス</th>
+            <td><input type="text" v-model="form.mail_address"></td>
+          </tr>
+          <tr>
+            <th>郵便番号</th>
+            <td><input type="text" v-model="form.postal_code_1"><input type="text" v-model="form.postal_code_2"></td>
+          </tr>
+          <tr>
+            <th>ご住所</th>
+            <td><input type="text" v-model="form.prefecture"><input type="text" v-model="form.address_1"><input type="text" v-model="form.address_2"></td>
+          </tr>
+          <tr>
+            <th>会員登録済み</th>
+            <td><input type="checkbox" v-model="form.member"></td>
+          </tr>
+        </table>
 
         <hr />
         <h2 class="text-lg font-bold text-left mb-2 mt-4">お届け先</h2>
+        <ul>
+          <li v-for="itemBox, itemBoxIndex in form.item_box" :key="itemBoxIndex" class="mb-12">
+            <h2 class="text-lg font-bold text-left mb-2">購入商品{{ itemBox.number }}</h2>
+            <table>
+              <tr>
+                <th>お名前</th>
+                <td>{{ itemBox.delivery_list.name }}</td>
+              </tr>
+              <tr>
+                <th>郵便番号</th>
+                <td>{{ itemBox.delivery_list.postal_code_1 }}{{ itemBox.delivery_list.postal_code_2 }}</td>
+              </tr>
+              <tr>
+                <th>ご住所</th>
+                <td>{{ itemBox.delivery_list.prefecture }}{{ itemBox.delivery_list.address_1 }}{{ itemBox.delivery_list.address_2 }}</td>
+              </tr>
+              <tr>
+                <th>お届け日</th>
+                <td>{{ itemBox.delivery_list.deliverly_day }}</td>
+              </tr>
+              <tr>
+                <th>お届け時間</th>
+                <td></td>
+              </tr>
+              <tr>
+                <th>備考欄</th>
+                <td></td>
+              </tr>
+            </table>
+          </li>
+        </ul>
 
       </div>
     </section>
@@ -174,6 +233,13 @@ const currentDate = dayjs();
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  color: #292929;
+  background-color:hsla(0,0%,100%,1);
+background-image:
+radial-gradient(at 8% 2%, hsla(19,100%,91%,1) 0px, transparent 50%),
+radial-gradient(at 8% 86%, hsla(9,100%,96%,1) 0px, transparent 50%),
+radial-gradient(at 80% 50%, hsla(19,100%,87%,1) 0px, transparent 50%),
+radial-gradient(at 83% 79%, hsla(349,100%,89%,1) 0px, transparent 50%);
 }
 ul,li {
   list-style: none;
