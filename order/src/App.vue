@@ -1,5 +1,6 @@
 <script setup>
 import dayjs from 'dayjs';
+import { ref } from 'vue';
 
 const form = {
   status: '0',
@@ -102,6 +103,16 @@ const form = {
 }
 
 const currentDate = dayjs();
+
+let temporarilyButtonText = "注文情報を一時保存";
+let temporarilyButtonFlag = true;
+const temporarilyButtonDisabled = ref(false);
+
+const isTemporarilySavedButton = () => {
+  temporarilyButtonText = '一時保存中';
+  temporarilyButtonDisabled.value = true;
+  temporarilyButtonFlag = !temporarilyButtonFlag;
+}
 </script>
 
 <template>
@@ -120,9 +131,9 @@ const currentDate = dayjs();
         <p class="text-xs text-left mb-1 tracking-wide">現在日時：{{ currentDate.format('YYYY/MM/DD HH:mm:ss') }}</p>
         <p class="text-xs text-left tracking-wide">更新日：{{ dayjs(form.day).format('YYYY/MM/DD') }}</p>
       </div>
-      <p class="text-sm text-left md:text-center mb-4 tracking-wider">購入商品とお客様情報をご確認の上、お支払い情報にお進みください。</p>
+      <p class="text-sm text-left md:text-center mb-16 tracking-wider">購入商品とお客様情報をご確認の上、お支払い情報にお進みください。</p>
 
-      <div class="w-[20rem] md:w-[36rem] mx-auto shadow-xl rounded-3xl py-16 px-4 md:px-8 bg-white">
+      <div class="w-[20rem] md:w-[36rem] mx-auto mb-12 rounded-3xl py-16 px-4 md:px-8 backdrop-blur-md item-contents">
         <ul>
           <li v-for="itemBox, itemBoxIndex in form.item_box" :key="itemBoxIndex" class="mb-12">
             <h2 class="text-lg font-bold text-left mb-2">購入商品{{ itemBox.number }}</h2>
@@ -156,24 +167,24 @@ const currentDate = dayjs();
         <h2 class="text-lg font-bold text-left mb-2 mt-4">購入者情報</h2>
         <table class="text-left">
           <tr class="">
-            <th class="">お名前</th>
-            <td class=""><input type="text" v-model="form.name" class="border px-2 h-8 rounded-md"></td>
+            <th class="w-28 text-sm font-normal">お名前</th>
+            <td class=""><input type="text" v-model="form.name" class="border px-2 h-8 rounded-md bg-transparent"></td>
           </tr>
           <tr>
-            <th>ふりがな</th>
-            <td><input type="text" v-model="form.name_kana"></td>
+            <th class="w-28 text-sm font-normal">ふりがな</th>
+            <td><input type="text" v-model="form.name_kana" class="bg-transparent"></td>
           </tr>
           <tr>
-            <th>お電話番号</th>
-            <td><input type="text" v-model="form.tel"></td>
+            <th class="w-28 text-sm font-normal">お電話番号</th>
+            <td><input type="text" v-model="form.tel" class="bg-transparent"></td>
           </tr>
           <tr>
-            <th>メールアドレス</th>
-            <td><input type="text" v-model="form.mail_address"></td>
+            <th class="w-28 text-sm font-normal">メールアドレス</th>
+            <td><input type="text" v-model="form.mail_address" class="bg-transparent"></td>
           </tr>
           <tr>
-            <th>郵便番号</th>
-            <td><input type="text" v-model="form.postal_code_1"><input type="text" v-model="form.postal_code_2"></td>
+            <th class="w-28 text-sm font-normal">郵便番号</th>
+            <td><input type="text" v-model="form.postal_code_1"><input type="text" v-model="form.postal_code_2" class="bg-transparent"></td>
           </tr>
           <tr>
             <th>ご住所</th>
@@ -192,34 +203,45 @@ const currentDate = dayjs();
             <h2 class="text-lg font-bold text-left mb-2">購入商品{{ itemBox.number }}</h2>
             <table>
               <tr>
-                <th>お名前</th>
-                <td>{{ itemBox.delivery_list.name }}</td>
+                <th class="w-28 text-sm font-normal">お名前</th>
+                <td class="text-sm">{{ itemBox.delivery_list.name }}</td>
               </tr>
               <tr>
-                <th>郵便番号</th>
-                <td>{{ itemBox.delivery_list.postal_code_1 }}{{ itemBox.delivery_list.postal_code_2 }}</td>
+                <th class="w-28 text-sm font-normal">郵便番号</th>
+                <td class="text-sm">{{ itemBox.delivery_list.postal_code_1 }}{{ itemBox.delivery_list.postal_code_2 }}</td>
               </tr>
               <tr>
-                <th>ご住所</th>
-                <td>{{ itemBox.delivery_list.prefecture }}{{ itemBox.delivery_list.address_1 }}{{ itemBox.delivery_list.address_2 }}</td>
+                <th class="w-28 text-sm font-normal">ご住所</th>
+                <td class="text-sm">{{ itemBox.delivery_list.prefecture }}{{ itemBox.delivery_list.address_1 }}{{ itemBox.delivery_list.address_2 }}</td>
               </tr>
               <tr>
-                <th>お届け日</th>
-                <td>{{ itemBox.delivery_list.deliverly_day }}</td>
+                <th class="w-28 text-sm font-normal">お届け日</th>
+                <td class="text-sm">{{ itemBox.delivery_list.deliverly_day }}</td>
               </tr>
               <tr>
-                <th>お届け時間</th>
-                <td></td>
+                <th class="w-28 text-sm font-normal">お届け時間</th>
+                <td class="text-sm"></td>
               </tr>
               <tr>
-                <th>備考欄</th>
-                <td></td>
+                <th class="w-28 text-sm font-normal">備考欄</th>
+                <td class="text-sm"></td>
               </tr>
             </table>
           </li>
         </ul>
 
       </div>
+
+      <div class="text-center mb-6">
+        <button
+          class="flex items-center justify-center px-2 w-64 h-10 rounded-lg mx-auto text-sm backdrop-blur-md button-temporarily"
+          :class="temporarilyButtonFlag ? '' : 'text-gray-500'"
+          @click="isTemporarilySavedButton"
+          :disabled="temporarilyButtonDisabled" type="button">
+          {{ temporarilyButtonText }}
+        </button>
+      </div>
+
     </section>
   </main>
 
@@ -243,5 +265,27 @@ radial-gradient(at 83% 79%, hsla(349,100%,89%,1) 0px, transparent 50%);
 }
 ul,li {
   list-style: none;
+}
+
+.item-contents {
+  background: rgba( 255, 255, 255, 0.25 );
+  box-shadow: 0 8px 32px 0 rgba( 0, 0, 0, 0.08 );
+}
+.button-temporarily {
+  background-color: unset!important;
+  background: rgba( 255, 255, 255, 0.5 );
+  box-shadow: 0 8px 32px 0 rgba( 0, 0, 0, 0.08 );
+}
+
+input[type="text"] {
+  border: none;
+  background: rgba( 255, 255, 255, 0.4 );
+}
+select {
+  border: none;
+  background: rgba( 255, 255, 255, 0.4 );
+}
+table th {
+
 }
 </style>
