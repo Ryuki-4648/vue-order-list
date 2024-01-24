@@ -100,6 +100,12 @@ const form = {
   user_hold_point: '530',
   point_note: '100',
   note: 'テキストが入ります。テキストが入ります。テキストが入ります。テキストが入ります。',
+  card_info:
+  {
+    name: ' NANA HASHIMOTO',
+    card_number: '1234-5678-9012-3456',
+    expiration_date: '2023-12',
+  },
 }
 
 const currentDate = dayjs();
@@ -230,6 +236,22 @@ const isTemporarilySavedButton = () => {
           </li>
         </ul>
 
+        <hr />
+        <h2 class="text-lg font-bold text-left mb-2 mt-4">お支払い情報</h2>
+        <table class="text-left">
+          <tr class="">
+            <th class="w-28 text-sm font-normal">名義</th>
+            <td class=""><input type="text" v-model="form.card_info.name" class="border px-2 h-8 rounded-md bg-transparent"></td>
+          </tr>
+          <tr>
+            <th class="w-28 text-sm font-normal">クレジットカード番号</th>
+            <td><input type="text" v-model="form.card_info.card_number" class="bg-transparent"></td>
+          </tr>
+          <tr>
+            <th class="w-28 text-sm font-normal">有効期限</th>
+            <td><input type="text" v-model="form.card_info.expiration_date" class="bg-transparent"></td>
+          </tr>
+        </table>
       </div>
 
       <div class="text-center mb-6">
