@@ -1,6 +1,9 @@
 <script setup>
 import dayjs from 'dayjs';
 import { ref } from 'vue';
+import TableTh from './components/TableTh.vue';
+import TableTd from './components/TableTd.vue';
+import TableTr from './components/TableTr.vue';
 
 const form = {
   status: '0',
@@ -172,34 +175,34 @@ const isTemporarilySavedButton = () => {
         <hr />
         <h2 class="text-lg font-bold text-left mb-2 mt-4">購入者情報</h2>
         <table class="text-left">
-          <tr class="">
-            <th class="w-28 text-sm font-normal">お名前</th>
-            <td class=""><input type="text" v-model="form.name" class="border px-2 h-8 rounded-md bg-transparent"></td>
-          </tr>
-          <tr>
-            <th class="w-28 text-sm font-normal">ふりがな</th>
-            <td><input type="text" v-model="form.name_kana" class="bg-transparent"></td>
-          </tr>
-          <tr>
-            <th class="w-28 text-sm font-normal">お電話番号</th>
-            <td><input type="text" v-model="form.tel" class="bg-transparent"></td>
-          </tr>
-          <tr>
-            <th class="w-28 text-sm font-normal">メールアドレス</th>
-            <td><input type="text" v-model="form.mail_address" class="bg-transparent"></td>
-          </tr>
-          <tr>
-            <th class="w-28 text-sm font-normal">郵便番号</th>
-            <td><input type="text" v-model="form.postal_code_1"><input type="text" v-model="form.postal_code_2" class="bg-transparent"></td>
-          </tr>
-          <tr>
-            <th>ご住所</th>
-            <td><input type="text" v-model="form.prefecture"><input type="text" v-model="form.address_1"><input type="text" v-model="form.address_2"></td>
-          </tr>
-          <tr>
-            <th>会員登録済み</th>
-            <td><input type="checkbox" v-model="form.member"></td>
-          </tr>
+          <TableTr>
+            <TableTh>お名前</TableTh>
+            <TableTd><input type="text" v-model="form.name" class="border px-2 h-8 rounded-md bg-transparent"></TableTd>
+          </TableTr>
+          <TableTr>
+            <TableTh>ふりがな</TableTh>
+            <TableTd><input type="text" v-model="form.name_kana" class="bg-transparent"></TableTd>
+          </TableTr>
+          <TableTr>
+            <TableTh>お電話番号</TableTh>
+            <TableTd><input type="text" v-model="form.tel" class="bg-transparent"></TableTd>
+          </TableTr>
+          <TableTr>
+            <TableTh>メールアドレス</TableTh>
+            <TableTd><input type="text" v-model="form.mail_address" class="bg-transparent"></TableTd>
+          </TableTr>
+          <TableTr>
+            <TableTh>郵便番号</TableTh>
+            <TableTd><input type="text" v-model="form.postal_code_1"><input type="text" v-model="form.postal_code_2" class="bg-transparent"></TableTd>
+          </TableTr>
+          <TableTr>
+            <TableTh>ご住所</TableTh>
+            <TableTd><input type="text" v-model="form.prefecture"><input type="text" v-model="form.address_1"><input type="text" v-model="form.address_2"></TableTd>
+          </TableTr>
+          <TableTr>
+            <TableTh>会員登録済み</TableTh>
+            <TableTd><input type="checkbox" v-model="form.member"></TableTd>
+          </TableTr>
         </table>
 
         <hr />
@@ -208,30 +211,30 @@ const isTemporarilySavedButton = () => {
           <li v-for="itemBox, itemBoxIndex in form.item_box" :key="itemBoxIndex" class="mb-12">
             <h2 class="text-lg font-bold text-left mb-2">購入商品{{ itemBox.number }}</h2>
             <table>
-              <tr>
-                <th class="w-28 text-sm font-normal">お名前</th>
-                <td class="text-sm">{{ itemBox.delivery_list.name }}</td>
-              </tr>
-              <tr>
-                <th class="w-28 text-sm font-normal">郵便番号</th>
-                <td class="text-sm">{{ itemBox.delivery_list.postal_code_1 }}{{ itemBox.delivery_list.postal_code_2 }}</td>
-              </tr>
-              <tr>
-                <th class="w-28 text-sm font-normal">ご住所</th>
-                <td class="text-sm">{{ itemBox.delivery_list.prefecture }}{{ itemBox.delivery_list.address_1 }}{{ itemBox.delivery_list.address_2 }}</td>
-              </tr>
-              <tr>
-                <th class="w-28 text-sm font-normal">お届け日</th>
-                <td class="text-sm">{{ itemBox.delivery_list.deliverly_day }}</td>
-              </tr>
-              <tr>
-                <th class="w-28 text-sm font-normal">お届け時間</th>
-                <td class="text-sm"></td>
-              </tr>
-              <tr>
-                <th class="w-28 text-sm font-normal">備考欄</th>
-                <td class="text-sm"></td>
-              </tr>
+              <TableTr>
+                <TableTh>お名前</TableTh>
+                <TableTd>{{ itemBox.delivery_list.name }}</TableTd>
+              </TableTr>
+              <TableTr>
+                <TableTh>郵便番号</TableTh>
+                <TableTd>{{ itemBox.delivery_list.postal_code_1 }}{{ itemBox.delivery_list.postal_code_2 }}</TableTd>
+              </TableTr>
+              <TableTr>
+                <TableTh>ご住所</TableTh>
+                <TableTd>{{ itemBox.delivery_list.prefecture }}{{ itemBox.delivery_list.address_1 }}{{ itemBox.delivery_list.address_2 }}</TableTd>
+              </TableTr>
+              <TableTr>
+                <TableTh>お届け日</TableTh>
+                <TableTd>{{ itemBox.delivery_list.deliverly_day }}</TableTd>
+              </TableTr>
+              <TableTr>
+                <TableTh>お届け時間</TableTh>
+                <TableTd></TableTd>
+              </TableTr>
+              <TableTr>
+                <TableTh>備考欄</TableTh>
+                <TableTd></TableTd>
+              </TableTr>
             </table>
           </li>
         </ul>
@@ -239,18 +242,18 @@ const isTemporarilySavedButton = () => {
         <hr />
         <h2 class="text-lg font-bold text-left mb-2 mt-4">お支払い情報</h2>
         <table class="text-left">
-          <tr class="">
-            <th class="w-28 text-sm font-normal">名義</th>
-            <td class=""><input type="text" v-model="form.card_info.name" class="border px-2 h-8 rounded-md bg-transparent"></td>
-          </tr>
-          <tr>
-            <th class="w-28 text-sm font-normal">クレジットカード番号</th>
-            <td><input type="text" v-model="form.card_info.card_number" class="bg-transparent"></td>
-          </tr>
-          <tr>
-            <th class="w-28 text-sm font-normal">有効期限</th>
-            <td><input type="text" v-model="form.card_info.expiration_date" class="bg-transparent"></td>
-          </tr>
+          <TableTr>
+            <TableTh>名義</TableTh>
+            <TableTd><input type="text" v-model="form.card_info.name" class="bg-transparent"></TableTd>
+          </TableTr>
+          <TableTr>
+            <TableTh>カード番号</TableTh>
+            <TableTd><input type="text" v-model="form.card_info.card_number" class="bg-transparent"></TableTd>
+          </TableTr>
+          <TableTr>
+            <TableTh>有効期限</TableTh>
+            <TableTd><input type="text" v-model="form.card_info.expiration_date" class="bg-transparent"></TableTd>
+          </TableTr>
         </table>
       </div>
 

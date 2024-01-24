@@ -2,5 +2,7 @@
 </script>
 
 <template>
-  <td></td>
+  <td class="text-sm">
+    <slot></slot>
+  </td>
 </template>

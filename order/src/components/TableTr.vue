@@ -2,5 +2,7 @@
 </script>
 
 <template>
-  <tr></tr>
+  <tr class="mb-1 flex">
+    <slot></slot>
+  </tr>
 </template>

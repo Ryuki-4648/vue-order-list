@@ -2,7 +2,7 @@
 </script>
 
 <template>
-  <th class="w-28 text-sm font-normal">
+  <th class="w-32 text-sm font-normal">
     <slot></slot>
   </th>
 </template>
