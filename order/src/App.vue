@@ -4,6 +4,7 @@ import { ref } from 'vue';
 import TableTh from './components/TableTh.vue';
 import TableTd from './components/TableTd.vue';
 import TableTr from './components/TableTr.vue';
+import InputText from './components/Form/InputText.vue';
 
 const form = {
   status: '0',
@@ -176,12 +177,20 @@ const isTemporarilySavedButton = () => {
         <h2 class="text-lg font-bold text-left mb-2 mt-4">購入者情報</h2>
         <table class="text-left">
           <TableTr>
+            <TableTh>会員登録済み</TableTh>
+            <TableTd><input type="checkbox" v-model="form.member"></TableTd>
+          </TableTr>
+          <TableTr>
             <TableTh>お名前</TableTh>
-            <TableTd><input type="text" v-model="form.name" class="border px-2 h-8 rounded-md bg-transparent"></TableTd>
+            <TableTd>
+              <InputText v-model="form.name" />
+            </TableTd>
           </TableTr>
           <TableTr>
             <TableTh>ふりがな</TableTh>
-            <TableTd><input type="text" v-model="form.name_kana" class="bg-transparent"></TableTd>
+            <TableTd>
+              <InputText v-model="form.name_kana" />
+            </TableTd>
           </TableTr>
           <TableTr>
             <TableTh>お電話番号</TableTh>
@@ -198,10 +207,6 @@ const isTemporarilySavedButton = () => {
           <TableTr>
             <TableTh>ご住所</TableTh>
             <TableTd><input type="text" v-model="form.prefecture"><input type="text" v-model="form.address_1"><input type="text" v-model="form.address_2"></TableTd>
-          </TableTr>
-          <TableTr>
-            <TableTh>会員登録済み</TableTh>
-            <TableTd><input type="checkbox" v-model="form.member"></TableTd>
           </TableTr>
         </table>
 
