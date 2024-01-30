@@ -2,7 +2,7 @@
 </script>
 
 <template>
-  <td class="text-sm">
+  <td class="text-xs">
     <slot></slot>
   </td>
 </template>

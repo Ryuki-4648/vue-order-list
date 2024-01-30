@@ -17,8 +17,8 @@ const form = {
   postal_code_1: '107',
   postal_code_2: '0052',
   prefecture: '東京都',
-  address_1: '港区赤坂８丁目１１−２７',
-  address_2: '',
+  address_1: '港区赤坂8丁目11-27',
+  address_2: 'けやき坂ビル 406号室',
   member: true,
   total_sum_including_tax: '',
   item_total_sum: '',
@@ -194,19 +194,19 @@ const isTemporarilySavedButton = () => {
           </TableTr>
           <TableTr>
             <TableTh>お電話番号</TableTh>
-            <TableTd><input type="text" v-model="form.tel" class="bg-transparent"></TableTd>
+            <TableTd><InputText v-model="form.tel" /></TableTd>
           </TableTr>
           <TableTr>
             <TableTh>メールアドレス</TableTh>
-            <TableTd><input type="text" v-model="form.mail_address" class="bg-transparent"></TableTd>
+            <TableTd><InputText v-model="form.mail_address" /></TableTd>
           </TableTr>
           <TableTr>
             <TableTh>郵便番号</TableTh>
-            <TableTd><input type="text" v-model="form.postal_code_1"><input type="text" v-model="form.postal_code_2" class="bg-transparent"></TableTd>
+            <TableTd><InputText v-model="form.postal_code_1" /><span class="mr-2">-</span><InputText v-model="form.postal_code_2" /></TableTd>
           </TableTr>
           <TableTr>
             <TableTh>ご住所</TableTh>
-            <TableTd><input type="text" v-model="form.prefecture"><input type="text" v-model="form.address_1"><input type="text" v-model="form.address_2"></TableTd>
+            <TableTd><InputText v-model="form.prefecture" /><InputText v-model="form.address_1" /><InputText v-model="form.address_2" /></TableTd>
           </TableTr>
         </table>
 
@@ -218,27 +218,27 @@ const isTemporarilySavedButton = () => {
             <table>
               <TableTr>
                 <TableTh>お名前</TableTh>
-                <TableTd>{{ itemBox.delivery_list.name }}</TableTd>
+                <TableTd><InputText v-model="itemBox.delivery_list.name" /></TableTd>
               </TableTr>
               <TableTr>
                 <TableTh>郵便番号</TableTh>
-                <TableTd>{{ itemBox.delivery_list.postal_code_1 }}{{ itemBox.delivery_list.postal_code_2 }}</TableTd>
+                <TableTd><InputText v-model="itemBox.delivery_list.postal_code_1" /><span class="mr-2">-</span><InputText v-model="itemBox.delivery_list.postal_code_2" /></TableTd>
               </TableTr>
               <TableTr>
                 <TableTh>ご住所</TableTh>
-                <TableTd>{{ itemBox.delivery_list.prefecture }}{{ itemBox.delivery_list.address_1 }}{{ itemBox.delivery_list.address_2 }}</TableTd>
+                <TableTd><InputText v-model="itemBox.delivery_list.prefecture" /><InputText v-model="itemBox.delivery_list.address_1" /><InputText v-model="itemBox.delivery_list.address_2" /></TableTd>
               </TableTr>
               <TableTr>
                 <TableTh>お届け日</TableTh>
-                <TableTd>{{ itemBox.delivery_list.deliverly_day }}</TableTd>
+                <TableTd><InputText v-model="itemBox.delivery_list.deliverly_day" /></TableTd>
               </TableTr>
               <TableTr>
                 <TableTh>お届け時間</TableTh>
-                <TableTd></TableTd>
+                <TableTd><InputText v-model="itemBox.delivery_list.postal_code_1" /></TableTd>
               </TableTr>
               <TableTr>
                 <TableTh>備考欄</TableTh>
-                <TableTd></TableTd>
+                <TableTd><InputText v-model="itemBox.delivery_list.postal_code_1" /></TableTd>
               </TableTr>
             </table>
           </li>
@@ -249,15 +249,15 @@ const isTemporarilySavedButton = () => {
         <table class="text-left">
           <TableTr>
             <TableTh>名義</TableTh>
-            <TableTd><input type="text" v-model="form.card_info.name" class="bg-transparent"></TableTd>
+            <TableTd><InputText v-model="form.card_info.name" /></TableTd>
           </TableTr>
           <TableTr>
             <TableTh>カード番号</TableTh>
-            <TableTd><input type="text" v-model="form.card_info.card_number" class="bg-transparent"></TableTd>
+            <TableTd><InputText v-model="form.card_info.card_number" /></TableTd>
           </TableTr>
           <TableTr>
             <TableTh>有効期限</TableTh>
-            <TableTd><input type="text" v-model="form.card_info.expiration_date" class="bg-transparent"></TableTd>
+            <TableTd><InputText v-model="form.card_info.expiration_date" /></TableTd>
           </TableTr>
         </table>
       </div>
