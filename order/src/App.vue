@@ -42,7 +42,7 @@ const form = {
           deliverly_day: '2023-08-09 16:23',
           specified_time: '1',
           time: ['2'],
-          note: '',
+          note: '配達ボックスに入れてください。',
         },
       items: [
         {
@@ -84,7 +84,7 @@ const form = {
           deliverly_day: '2023-01-30 10:34',
           specified_time: '1',
           time: ['4'],
-          note: '',
+          note: '置き配でお願いします。',
         },
       items: [
         {
@@ -107,8 +107,9 @@ const form = {
   card_info:
   {
     name: ' NANA HASHIMOTO',
-    card_number: '1234-5678-9012-3456',
+    card_number: '1234567890123456',
     expiration_date: '2023-12',
+    code: '123',
   },
 }
 
@@ -141,7 +142,7 @@ const isTemporarilySavedButton = () => {
         <p class="text-xs text-left mb-1 tracking-wide">現在日時：{{ currentDate.format('YYYY/MM/DD HH:mm:ss') }}</p>
         <p class="text-xs text-left tracking-wide">更新日：{{ dayjs(form.day).format('YYYY/MM/DD') }}</p>
       </div>
-      <p class="text-sm text-left md:text-center mb-16 tracking-wider">購入商品とお客様情報をご確認の上、お支払い情報にお進みください。</p>
+      <p class="text-xs md:text-sm text-left md:text-center mb-16 tracking-wider leading-loose">購入商品とお客様情報をご確認の上、お支払い情報にお進みください。</p>
 
       <div class="w-[20rem] md:w-[36rem] mx-auto mb-12 rounded-3xl py-16 px-4 md:px-8 backdrop-blur-md item-contents">
         <ul>
@@ -211,10 +212,10 @@ const isTemporarilySavedButton = () => {
         </table>
 
         <hr />
-        <h2 class="text-lg font-bold text-left mb-2 mt-4">お届け先</h2>
+        <h2 class="text-lg font-bold text-left mb-2 mt-4">お届け先一覧</h2>
         <ul>
           <li v-for="itemBox, itemBoxIndex in form.item_box" :key="itemBoxIndex" class="mb-12">
-            <h2 class="text-lg font-bold text-left mb-2">購入商品{{ itemBox.number }}</h2>
+            <h2 class="text-sm font-bold text-left mb-2">購入商品{{ itemBox.number }}のお届け先</h2>
             <table>
               <TableTr>
                 <TableTh>お名前</TableTh>
@@ -234,11 +235,11 @@ const isTemporarilySavedButton = () => {
               </TableTr>
               <TableTr>
                 <TableTh>お届け時間</TableTh>
-                <TableTd><InputText v-model="itemBox.delivery_list.postal_code_1" /></TableTd>
+                <TableTd><InputText v-model="itemBox.delivery_list.time" /></TableTd>
               </TableTr>
               <TableTr>
                 <TableTh>備考欄</TableTh>
-                <TableTd><InputText v-model="itemBox.delivery_list.postal_code_1" /></TableTd>
+                <TableTd><InputText v-model="itemBox.delivery_list.note" /></TableTd>
               </TableTr>
             </table>
           </li>
@@ -253,11 +254,15 @@ const isTemporarilySavedButton = () => {
           </TableTr>
           <TableTr>
             <TableTh>カード番号</TableTh>
-            <TableTd><InputText v-model="form.card_info.card_number" /></TableTd>
+            <TableTd><InputText v-model="form.card_info.card_number" type="password" /></TableTd>
           </TableTr>
           <TableTr>
             <TableTh>有効期限</TableTh>
             <TableTd><InputText v-model="form.card_info.expiration_date" /></TableTd>
+          </TableTr>
+          <TableTr>
+            <TableTh>セキュリティコード</TableTh>
+            <TableTd><InputText v-model="form.card_info.code" type="password" /></TableTd>
           </TableTr>
         </table>
       </div>
@@ -307,7 +312,7 @@ ul,li {
   box-shadow: 0 8px 32px 0 rgba( 0, 0, 0, 0.08 );
 }
 
-input[type="text"] {
+input[type="text"], input[type="password"] {
   border: none;
   background: rgba( 255, 255, 255, 0.4 );
 }
