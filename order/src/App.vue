@@ -6,7 +6,7 @@ import TableTd from './components/TableTd.vue';
 import TableTr from './components/TableTr.vue';
 import InputText from './components/Form/InputText.vue';
 
-const form = {
+const form = ref({
   status: '0',
   day: '2023-12-09 12:42',
   id: '1234567',
@@ -55,6 +55,7 @@ const form = {
             { item_name: '櫻坂46', select_box: ['渡辺梨加', '守屋麗奈', '森田ひかる', '土生瑞穂', '田村保乃', '山﨑天'], },
             { item_name: '日向坂46', select_box: ['小坂菜緒', '齊藤京子', '正源寺陽子',], },
           ],
+          favorite: true,
         },
         {
           product_name: '推しメン別12色ペンライト',
@@ -66,6 +67,7 @@ const form = {
             { item_name: '櫻坂46', select_box: ['渡辺梨加', '守屋麗奈', '森田ひかる', '土生瑞穂', '田村保乃', '山﨑天'] },
             { item_name: '日向坂46', select_box: ['小坂菜緒', '齊藤京子', '正源寺陽子',], },
           ],
+          favorite: false,
         },
       ],
     },
@@ -95,6 +97,7 @@ const form = {
           detail: [
             { item_name: 'メンバーの名前', select_box: ['衛藤美彩', '橋本奈々未', '白石麻衣', '生田絵梨花', '与田祐希', '五百城茉央', '池田瑛紗', '渡辺梨加', '守屋麗奈', '森田ひかる', '土生瑞穂', '田村保乃', '山﨑天'], },
           ],
+          favorite: true,
         },
       ],
     }
@@ -111,7 +114,7 @@ const form = {
     expiration_date: '2023-12',
     code: '123',
   },
-}
+});
 
 const currentDate = dayjs();
 
@@ -123,6 +126,10 @@ const isTemporarilySavedButton = () => {
   temporarilyButtonText = '一時保存中';
   temporarilyButtonDisabled.value = true;
   temporarilyButtonFlag = !temporarilyButtonFlag;
+}
+
+const onClickFavoriteButton = (itemBoxIndex, index) => {
+  form.value.item_box[itemBoxIndex].items[index].favorite = !form.value.item_box[itemBoxIndex].items[index].favorite;
 }
 </script>
 
@@ -168,7 +175,13 @@ const isTemporarilySavedButton = () => {
                     </div>
                   </div>
                 </div>
-
+                <button
+                  class="text-xs font-bold rounded-2xl px-2 py-1 mt-2 text-gray-600 border-red-200 border-2"
+                  :class="{  'bg-red-200' : item.favorite, 'bg-red-100' : !item.favorite }"
+                  @click="onClickFavoriteButton(itemBoxIndex, index)"
+                >
+                  {{ item.favorite ?  'お気に入り追加済み' : 'お気に入り追加'}}
+                </button>
               </li>
             </ul>
           </li>
