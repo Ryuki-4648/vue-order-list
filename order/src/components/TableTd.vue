@@ -2,7 +2,7 @@
 </script>
 
 <template>
-  <td class="text-xs">
+  <td class="text-xs" :class="addClasses">
     <slot></slot>
   </td>
 </template>
