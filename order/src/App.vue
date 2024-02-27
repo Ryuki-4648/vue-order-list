@@ -17,9 +17,9 @@ const form = ref({
   postal_code_1: '107',
   postal_code_2: '0052',
   prefecture: '東京都',
-  address_1: '港区赤坂8丁目11-27',
-  address_2: 'けやき坂ビル 406号室',
-  member: true,
+  address_1: '港区赤坂8丁目11',
+  address_2: 'けやき坂ビル 406',
+  membershipRegister: true,
   total_sum_including_tax: '',
   item_total_sum: '',
   postage: '600',
@@ -135,8 +135,8 @@ const onClickFavoriteButton = (itemBoxIndex, index) => {
 
 <template>
 
-  <header class="fixed pl-3 md:pl-6 pt-2 md:pt-4 text-xl w-full">
-    <h1>Sakamichi shop</h1>
+  <header class="fixed pl-3 md:pl-6 pt-2 md:pt-4 text-xl w-full z-10">
+    <h1 class="drop-shadow-shadow01">Sakamichi shop</h1>
   </header>
 
   <main class="py-24 px-2">
@@ -149,7 +149,7 @@ const onClickFavoriteButton = (itemBoxIndex, index) => {
         <p class="text-xs text-left mb-1 tracking-wide">現在日時：{{ currentDate.format('YYYY/MM/DD HH:mm:ss') }}</p>
         <p class="text-xs text-left tracking-wide">更新日：{{ dayjs(form.day).format('YYYY/MM/DD') }}</p>
       </div>
-      <p class="text-xs md:text-sm text-left md:text-center mb-16 tracking-wider leading-loose">購入商品とお客様情報をご確認の上、お支払い情報にお進みください。</p>
+      <p class="text-xs md:text-sm text-left md:text-center mb-8 md:mb-16 tracking-wider leading-loose">購入商品とお客様情報をご確認の上、お支払い情報にお進みください。</p>
 
       <div class="w-[20rem] md:w-[36rem] mx-auto mb-12 rounded-3xl py-16 px-4 md:px-8 backdrop-blur-md item-contents">
         <ul>
@@ -176,7 +176,7 @@ const onClickFavoriteButton = (itemBoxIndex, index) => {
                   </div>
                 </div>
                 <button
-                  class="text-xs font-bold rounded-2xl px-2 py-1 mt-2 text-gray-600 border-red-200 border-2"
+                  class="text-xs font-bold rounded-2xl px-2 py-1 mt-2 text-gray-600 border-red-200 border-2 w-32"
                   :class="{  'bg-red-200' : item.favorite, 'bg-red-100' : !item.favorite }"
                   @click="onClickFavoriteButton(itemBoxIndex, index)"
                 >
@@ -189,11 +189,12 @@ const onClickFavoriteButton = (itemBoxIndex, index) => {
 
         <hr />
         <h2 class="text-lg font-bold text-left mb-2 mt-4">購入者情報</h2>
-        <table class="text-left">
-          <TableTr>
-            <TableTh>会員登録済み</TableTh>
-            <TableTd><input type="checkbox" v-model="form.member"></TableTd>
-          </TableTr>
+        <p class="text-xs md:text-sm text-left mb-2 tracking-wider leading-loose">会員登録済みでない方はご住所を入力してください。</p>
+        <div class="flex items-baseline pb-4">
+          <label class="text-xs md:text-sm mr-2">会員登録済み</label>
+          <input type="checkbox" v-model="form.membershipRegister">
+        </div>
+        <table class="text-left" v-if="!form.membershipRegister">
           <TableTr>
             <TableTh>お名前</TableTh>
             <TableTd>
@@ -244,7 +245,7 @@ const onClickFavoriteButton = (itemBoxIndex, index) => {
               </TableTr>
               <TableTr>
                 <TableTh>お届け日</TableTh>
-                <TableTd><InputText v-model="itemBox.delivery_list.deliverly_day" /></TableTd>
+                <TableTd><InputText v-model="itemBox.delivery_list.deliverly_day" class="md:w-40" /></TableTd>
               </TableTr>
               <TableTr>
                 <TableTh>お届け時間</TableTh>
@@ -252,7 +253,7 @@ const onClickFavoriteButton = (itemBoxIndex, index) => {
               </TableTr>
               <TableTr>
                 <TableTh>備考欄</TableTh>
-                <TableTd><InputText v-model="itemBox.delivery_list.note" /></TableTd>
+                <TableTd class="w-full md:w-auto"><InputText v-model="itemBox.delivery_list.note" class="w-full md:!w-72" /></TableTd>
               </TableTr>
             </table>
           </li>
@@ -263,11 +264,11 @@ const onClickFavoriteButton = (itemBoxIndex, index) => {
         <table class="text-left">
           <TableTr>
             <TableTh>名義</TableTh>
-            <TableTd><InputText v-model="form.card_info.name" /></TableTd>
+            <TableTd><InputText v-model="form.card_info.name" class="md:w-40" /></TableTd>
           </TableTr>
           <TableTr>
             <TableTh>カード番号</TableTh>
-            <TableTd><InputText v-model="form.card_info.card_number" type="password" /></TableTd>
+            <TableTd><InputText v-model="form.card_info.card_number" class="md:w-40" type="password" /></TableTd>
           </TableTr>
           <TableTr>
             <TableTh>有効期限</TableTh>
@@ -305,11 +306,12 @@ const onClickFavoriteButton = (itemBoxIndex, index) => {
   -moz-osx-font-smoothing: grayscale;
   color: #292929;
   background-color:hsla(0,0%,100%,1);
-background-image:
-radial-gradient(at 8% 2%, hsla(19,100%,91%,1) 0px, transparent 50%),
-radial-gradient(at 8% 86%, hsla(9,100%,96%,1) 0px, transparent 50%),
-radial-gradient(at 80% 50%, hsla(19,100%,87%,1) 0px, transparent 50%),
-radial-gradient(at 83% 79%, hsla(349,100%,89%,1) 0px, transparent 50%);
+  background-attachment: fixed;
+  background-image:
+    radial-gradient(at 8% 2%, hsla(19,100%,91%,1) 0px, transparent 50%),
+    radial-gradient(at 8% 86%, hsla(9,100%,96%,1) 0px, transparent 50%),
+    radial-gradient(at 80% 50%, hsla(19,100%,87%,1) 0px, transparent 50%),
+    radial-gradient(at 83% 79%, hsla(349,100%,89%,1) 0px, transparent 50%);
 }
 ul,li {
   list-style: none;
@@ -332,8 +334,5 @@ input[type="text"], input[type="password"] {
 select {
   border: none;
   background: rgba( 255, 255, 255, 0.4 );
-}
-table th {
-
 }
 </style>
