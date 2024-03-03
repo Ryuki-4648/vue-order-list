@@ -6,6 +6,12 @@ import TableTd from './components/TableTd.vue';
 import TableTr from './components/TableTr.vue';
 import InputText from './components/Form/InputText.vue';
 
+const selectedOption = ref(null);
+
+const updateSelectedOption = (value) => {
+  selectedOption.value = value;
+};
+
 const form = ref({
   status: '0',
   day: '2023-12-09 12:42',
@@ -167,7 +173,7 @@ const onClickFavoriteButton = (itemBoxIndex, index) => {
                       <ul class="text-left">
                         <li v-for="selectItem, selectItemIndex in item.detail" :key="selectItemIndex" class="" v-bind:class="{ 'mb-2': selectItemIndex !== item.detail.length -1 }">
                           <label class="text-sm w-28 inline-block">{{ selectItem.item_name }}</label>
-                          <select v-model="selectItem.select_box" class="border border-gray-300 h-6 w-40 rounded-md">
+                          <select @change="updateSelectedOption(selectItem.select_box)" value="" class="border border-gray-300 h-6 w-40 rounded-md">
                             <option v-for="option in selectItem.select_box" :key="option" :value="option">{{ option }}</option>
                           </select>
                         </li>
